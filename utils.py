@@ -1,18 +1,20 @@
 import tensorflow.keras as ks
+from numpy.random import seed
+seed(1)
 
-def build_dnn(neurons = (3, 4, 5),
-              loss = 'MSE',
-              activation = 'relu',
-              do_rate = .2,
-              l2 = .01,
-              lr = .001,
-              beta_1 = .9,
-              beta_2 = .999
+def build_dnn(neurons=(3, 4, 5),
+              loss='MSE',
+              activation='relu',
+              do_rate=.2,
+              l2=.01,
+              lr=.001,
+              beta_1=.9,
+              beta_2=.999
               ):
-    '''
-    Create Dense Neural network with dropout, and l2 capabilites using the Adam optimizer.
+    """Create Dense Neural network with dropout, and l2 capabilites using the 
+    Adam optimizer.
     
-    Arguments:
+    Args:
         neurons - neuron counts in hidden layers. Dense NN will have len(neurons) hidden layers
             type == tuple of int
             d (3, 4, 5)
@@ -47,10 +49,9 @@ def build_dnn(neurons = (3, 4, 5),
     Returns:
         model - keras sequential model, built and compiled
             type == ks.engine.sequential.Sequential
-    '''
-    
+    """
     ## prepare the optimizer
-    opt = ks.optimizers.Adam(learning_rate = lr, beta_1 = beta_1, beta_2 = beta_2)
+    opt = ks.optimizers.Adam(learning_rate=lr, beta_1=beta_1, beta_2=beta_2)
     
     ## prepare the regularizer for hidden layers with specified l2 rate
     reg = ks.regularizers.l2(l2)
@@ -85,6 +86,8 @@ def build_dnn(neurons = (3, 4, 5),
    
     return model
 
+## first create a wrapper function to return the metric that we care about
+#. that would be the loss ON SOME VALIDATION DATA
 def dnn_point_evaluation(no_neurons, train_data):
     '''
     Build, train, and evaluate (validation) a DNN for the number of neurons in the first
@@ -99,13 +102,13 @@ def dnn_point_evaluation(no_neurons, train_data):
     '''
     
     ## create the model that we want, no dropout rate and specified first HL count
-    model = build_dnn(neurons = (no_neurons, 60),
+    model = build_dnn(neurons = (no_neurons, 5, 5),
                       do_rate = 0.0)
     
     ## train the model on the training data, evaluating on validation
     history = model.fit(train_data[0], train_data[1], 
                    epochs = 100, batch_size = 32, verbose = 2,
-                   validation_split = 0.2) # this time we specify 20% of the training data for val
+                   validation_split = 0.2, ) # this time we specify 20% of the training data for val
     
     ## get the metric that we care about, the final validation loss
     val_loss = history.history['val_loss'][-1]
