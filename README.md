@@ -39,3 +39,4 @@ intertwined models.
 - tutorial.pptx: powerpoint tutorial covering machine learning and neural network basics
 - tutorial.ipynb: tutotial implimentation in python
 - environment.yml: conda environment specifications
+- utils.py: module to use during tutorial
