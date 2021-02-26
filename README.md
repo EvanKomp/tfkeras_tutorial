@@ -3,8 +3,10 @@ Valleau lab tensorflow keras tutorial. Basics of machine learning and making neu
 
 ## Getting it working
 Create and install the conda environment, then activate it with the commands below:
-> <code>conda env create -f environment.yml<\code>
-> <code>conda activate kerastutorial<\code>
+
+><code>conda env create -f environment.yml</code>
+
+><code>conda activate kerastutorial</code>
 
 ## Contents
 
